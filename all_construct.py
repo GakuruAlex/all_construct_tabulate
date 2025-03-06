@@ -1,0 +1,3 @@
+from typing import List
+def all_construct(target_word: str, word_bank: List[str])-> List[List[str]]:
+    ...
