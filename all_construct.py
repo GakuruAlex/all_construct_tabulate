@@ -8,22 +8,23 @@ def all_construct(target_word: str, word_bank: List[str])-> List[List[str]]:
     all_construct_words[0] = [[]]
     for index in range(len(target_word)):
         for word in word_bank:
-            current_target_word: str = target_word[index : len(word)]
-            save_index: int = index + len(word)
-            if current_target_word == word:
-                if all_construct_words[save_index] != None:
-                    for values in all_construct_words[save_index]:
-                        values.append(word)
+            if  target_word[index : index + len(word)] == word and all_construct_words[index] != None:
+                if all_construct_words[index + len(word)] != None:
+                    current = deepcopy(all_construct_words[index])
+                    for i, values in enumerate(all_construct_words[index]):
+                        current[i].append(word)
+
+                    all_construct_words[index + len(word)].extend(current)
                 else:
                     copy_value = deepcopy(all_construct_words[index])
-                    for values in copy_value:
-                        values.append(word)
-                    all_construct_words[save_index] = copy_value
-    return all_construct_words[len(word)]
+                    for y, values in enumerate(all_construct_words[index]):
+                        copy_value[y].append(word)
+                    all_construct_words[index + len(word)] = copy_value
+    return all_construct_words[len(target_word)]
 
 def main() -> None:
     target_word = 'abcdef'
-    word_bank = ['ab', 'abc', 'abc', 'cd', 'ef', 'abcd']
+    word_bank = ['ab', 'abc','cd', 'ef', 'abcd']
     words_construct = all_construct(target_word=target_word, word_bank= word_bank)
     print(words_construct)
 
