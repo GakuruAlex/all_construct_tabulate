@@ -11,13 +11,15 @@ def all_construct(target_word: str, word_bank: List[str])-> List[List[str]]:
             if  target_word[index : index + len(word)] == word and all_construct_words[index] != None:
                 if all_construct_words[index + len(word)] != None:
                     current = deepcopy(all_construct_words[index])
-                    for i, values in enumerate(all_construct_words[index]):
-                        current[i].append(word)
-
+                    list(map(lambda inner: inner.append(word), current))
                     all_construct_words[index + len(word)].extend(current)
+                    # for i in range(len(all_construct_words[index])):
+                    #     current[i].append(word)
+
+                    # all_construct_words[index + len(word)].extend(current)
                 else:
                     copy_value = deepcopy(all_construct_words[index])
-                    for y, values in enumerate(all_construct_words[index]):
+                    for y in range(len(all_construct_words[index])):
                         copy_value[y].append(word)
                     all_construct_words[index + len(word)] = copy_value
     return all_construct_words[len(target_word)]
